@@ -62,7 +62,7 @@ export default function Menu() {
             onMouseOver={() => hoverEnter(wordButtonRef)}
             onMouseOut={() => hoverExit(wordButtonRef)}
             type="button"
-            className="WordOption"
+            className="Option"
             id="words"
         >
             words
@@ -76,7 +76,7 @@ export default function Menu() {
             onMouseOver={() => hoverEnter(timeButtonRef)}
             onMouseOut={() => hoverExit(timeButtonRef)}
             type="button"
-            className="TimeOption"
+            className="Option"
             id="time"
         >
             time

@@ -25,6 +25,7 @@ export default function Menu() {
         return () => window.removeEventListener("resize", updateDimensions);
     }, []);
 
+    // function to show/hide items based on window size
     const updateDimensions = () => {
         const width = window.innerWidth;
         setWindowWidth(width);

@@ -3,10 +3,23 @@
 .TextDisplay {
     background-color: var(--background-color);
     display: flex;
-    flex-direction: column;
+    width: 80vw;
     align-items: center;
     font-size: calc(18px + 2vmin);
     color: white;
     resize: none;
     overflow: hidden;
+    padding-left: 10px;
+    margin-top: 5vh;
+    caret-color: var(--caret-color);
+    border: none;
+}
+
+::selection {
+    color: var(--accent-color);
+    background: var(--background-color);
+}
+
+.TextDisplay:focus {
+    outline: none;
 }
