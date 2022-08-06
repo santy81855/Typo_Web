@@ -1,0 +1,86 @@
+@import "global.css";
+
+.Menu {
+  background-color: var(--background-color);
+  display: flex;
+  flex-direction: row;
+  align-self: flex-start;
+  min-width: 100px;
+  min-height: 90px;
+  border-radius: 10px;
+  margin-left: 10vw;
+  margin-top: 50px;
+}
+
+.MenuLogo {
+  background-color: rgba(0,0,0,0); /*transparent*/
+  border: none;
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-right: 10px; /*space between logo and profile*/
+}
+
+.LogoText {
+  font-size: 60px;
+  font-weight: bold;
+  color: var(--text-highlight-color);
+}
+
+.MenuText {
+  font-size: 20px;
+  font-weight: bold;
+  padding-top: 5px;
+  padding-left: 5px;
+}
+
+.ProfileButton {
+  background-color: rgba(0,0,0,0);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding-top: 10px;
+  /*space between profile and settings*/
+  margin-left: 10px;
+  margin-right: 10px;
+  color: white;
+}
+
+.ProfileButton:hover {
+  transition: 0.5s;
+  color: var(--text-highlight-color);
+}
+
+.SettingsButton:hover {
+  transition: 0.5s;
+  color: var(--text-highlight-color);
+}
+
+.SettingsButton {
+  background-color: rgba(0,0,0,0);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding-top: 10px;
+  /*space between settings and profile*/
+  margin-left: 10px;
+  padding-right: 10px;
+  color: white;
+}
+
+.SettingsPicture {
+  height: 30px;
+}
+
+.ProfilePicture {
+  height: 30px;
+}
+
+.Logo {
+  width: 90px;
+}
