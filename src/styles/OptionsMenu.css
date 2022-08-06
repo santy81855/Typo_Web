@@ -1,70 +1,67 @@
 @import "global.css";
 
 .OptionsMenu {
-  background-color: var(--background-color);
-  display: flex;
-  flex-direction: column;
-  align-self: center;
-  min-width: 100px;
-  min-height: 90px;
-  border: none;
-  margin-top: 80px;
-  margin-bottom: 80px;
+    background-color: var(--background-color);
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    min-width: 100px;
+    min-height: 90px;
+    border: none;
+    margin-top: 80px;
+    margin-bottom: 80px;
 }
 
 ::selection {
-  color: var(--accent-color);
-  background: var(--text-highlight-color);
+    color: var(--accent-color);
+    background: var(--text-highlight-color);
 }
 
 .TopRow {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 }
 
 .BottomRow {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 }
 
 .WordOption {
-  background-color: var(--background-color);
-  color: var(--text-highlight-color);
-  cursor: pointer;
-  font-size: large;
-  margin-right: 2px;
-  border: none;
+    background-color: var(--background-color);
+    color: var(--text-highlight-color);
+    cursor: pointer;
+    font-size: 25px;
+    border: none;
 }
 
 .WordOption:hover {
-  transition: 0.5s;
+    transition: 0.5s;
 }
 
 .TimeOption {
-  background-color: var(--background-color);
-  color: var(--accent-color);
-  cursor: pointer;
-  font-size: large;
-  margin-right: 2px;
-  border: none;
+    background-color: var(--background-color);
+    color: var(--accent-color);
+    cursor: pointer;
+    font-size: 25px;
+    border: none;
 }
 
 .TimeOption:hover {
-  transition: 0.5s;
+    transition: 0.5s;
 }
 
 .SubOption {
-  background-color: var(--background-color);
-  border: none;
-  color: var(--accent-color);
-  cursor: pointer;
-  font-size: large;
-  
+    background-color: var(--background-color);
+    border: none;
+    color: var(--accent-color);
+    cursor: pointer;
+    font-size: large;
 }
 
 .SubOption:hover {
-  transition: 0.7s;
-  color: var(--text-highlight-color);
+    transition: 0.7s;
+    color: var(--text-highlight-color);
 }
