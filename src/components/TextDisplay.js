@@ -6,9 +6,12 @@ import "../styles/TextDisplay.css";
 }
 
 export default function TextDisplay() {
+    var text = "hello this is santy";
+
     const handleChange = (event) => {
         console.log("value is:", event.target.value);
-        textBoxRef.current.value = event.target.value;
+        text = text + event.target.value;
+        textBoxRef.current.value = text;
     };
 
     const textBoxRef = useRef(null);
