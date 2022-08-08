@@ -6,13 +6,14 @@ import "../styles/TextDisplay.css";
 }
 
 export default function TextDisplay() {
-    var text = "hello this is santy";
-
     const handleChange = (event) => {
-        console.log("value is:", event.target.value);
-        text = text + event.target.value;
-        textBoxRef.current.value = text;
+        console.log(createColorWord("hello", "red").props.children);
+        textBoxRef.current.value = "";
     };
+
+    function createColorWord(text, color) {
+        return <span style={{ color: color }}>{text}</span>;
+    }
 
     const textBoxRef = useRef(null);
 
@@ -23,6 +24,7 @@ export default function TextDisplay() {
             autoFocus={true}
             onChange={handleChange}
             className="TextDisplay"
+            id="textbox"
             rows="3"
             cols="50"
             placeholder="word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word "

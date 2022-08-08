@@ -5,12 +5,7 @@
     flex-direction: column;
     align-self: center;
     border: none;
-    margin-top: 20vh;
-}
-
-::selection {
-    color: var(--accent-color);
-    background: var(--text-highlight-color);
+    margin-top: 15vh;
 }
 
 .TopRow {

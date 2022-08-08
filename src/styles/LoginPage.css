@@ -1,0 +1,159 @@
+@import "global.css";
+
+.LoginPage {
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    border: 2px solid var(--text-highlight-color);
+    border-radius: 5px;
+    margin-top: 10vh;
+    width: 50vw;
+    height: 60vh;
+    min-width: var(--min-width);
+    min-height: var(--min-height);
+    max-width: 500px;
+    max-height: 500px;
+}
+
+.LoginTitleText {
+    color: var(--text-highlight-color);
+    text-align: center;
+    font-size: 25px;
+}
+
+.EmailInput {
+    text-align: left;
+    font-size: large;
+    color: var(--accent-color);
+    height: 50px;
+    border: 2px solid var(--lighter-background-color);
+    border-radius: 5px;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    background-color: var(--lighter-background-color);
+    caret-color: var(--caret-color);
+}
+
+.PassInput {
+    text-align: left;
+    font-size: large;
+    color: var(--accent-color);
+    height: 50px;
+    border: 2px solid var(--lighter-background-color);
+    border-radius: 5px;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    background-color: var(--lighter-background-color);
+    caret-color: var(--caret-color);
+}
+
+.LoginError {
+    font-size: 15px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    text-align: center;
+    color: red;
+}
+
+.LoginButton {
+    background-color: var(--text-highlight-color);
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    height: 50px;
+    border: 2px solid var(--text-highlight-color);
+    border-radius: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 10px;
+}
+
+.LoginButtonText {
+    color: var(--accent-color);
+    font-size: large;
+    text-align: center;
+    align-self: center;
+}
+
+.SmallSignupPrompt {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+.SmallSignupText {
+    font-size: 15px;
+}
+
+.SmallSignupButton {
+    background-color: var(--background-color);
+    border: none;
+    cursor: pointer;
+}
+
+.SmallSignupButtonText {
+    color: var(--text-highlight-color);
+    font-size: 15px;
+    text-align: center;
+    align-self: center;
+}
+
+.OrText {
+    font-size: 20px;
+    text-align: center;
+    align-self: center;
+    font-weight: bold;
+    margin-top: 0px;
+}
+
+.AlternateSigninIcon {
+    align-self: center;
+    width: 35px;
+    padding-right: 10px;
+}
+
+.AlternateSigninText {
+    font-size: 18px;
+    color: var(--google-text-color);
+    align-self: center;
+}
+
+.AlternateSigninButton {
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    background-color: var(--google-background-color);
+    height: 50px;
+    border: 2px solid var(--google-background-color);
+    border-radius: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+:focus {
+    outline: var(--text-highlight-color) solid 1px;
+}
+
+::-webkit-input-placeholder {
+    /* Chrome/Opera/Safari */
+    color: var(--placeholder-color);
+}
+
+::-moz-placeholder {
+    /* Firefox 19+ */
+    color: var(--placeholder-color);
+}
+:-ms-input-placeholder {
+    /* IE 10+ */
+    color: var(--placeholder-color);
+}
+:-moz-placeholder {
+    /* Firefox 18- */
+    color: var(--placeholder-color);
+}

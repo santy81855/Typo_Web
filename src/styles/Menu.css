@@ -12,6 +12,11 @@
     margin-top: 50px;
 }
 
+.ProfileAndSettings {
+    display: flex;
+    flex-direction: row;
+}
+
 .MenuLogo {
     background-color: rgba(0, 0, 0, 0); /*transparent*/
     border: none;

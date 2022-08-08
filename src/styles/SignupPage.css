@@ -1,0 +1,196 @@
+@import "global.css";
+
+.SignupPage {
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    border: 2px solid var(--text-highlight-color);
+    border-radius: 5px;
+    margin-top: 10vh;
+    width: 50vw;
+    height: 70vh;
+    min-width: var(--min-width);
+    min-height: 700px;
+    max-width: 500px;
+    max-height: 700px;
+}
+
+.SignupTitleText {
+    color: var(--text-highlight-color);
+    text-align: center;
+    font-size: 25px;
+}
+
+/* I had to split the left and right margins between the parent div and each NameInput */
+.FirstLastNameDiv {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 10px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.NameInput {
+    text-align: left;
+    font-size: large;
+    color: var(--accent-color);
+    height: 50px;
+    border: 2px solid var(--lighter-background-color);
+    border-radius: 5px;
+    background-color: var(--lighter-background-color);
+    caret-color: var(--caret-color);
+    width: 50%;
+    margin-right: 5px;
+    margin-left: 5px;
+}
+
+.UsernameInput {
+    text-align: left;
+    font-size: large;
+    color: var(--accent-color);
+    height: 50px;
+    border: 2px solid var(--lighter-background-color);
+    border-radius: 5px;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    background-color: var(--lighter-background-color);
+    caret-color: var(--caret-color);
+}
+
+.EmailInput {
+    text-align: left;
+    font-size: large;
+    color: var(--accent-color);
+    height: 50px;
+    border: 2px solid var(--lighter-background-color);
+    border-radius: 5px;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    background-color: var(--lighter-background-color);
+    caret-color: var(--caret-color);
+}
+
+.PassInput {
+    text-align: left;
+    font-size: large;
+    color: var(--accent-color);
+    height: 50px;
+    border: 2px solid var(--lighter-background-color);
+    border-radius: 5px;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    background-color: var(--lighter-background-color);
+    caret-color: var(--caret-color);
+}
+
+.SignupError {
+    font-size: 15px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    text-align: center;
+    color: red;
+}
+
+.SignupButton {
+    background-color: var(--text-highlight-color);
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    height: 50px;
+    border: 2px solid var(--text-highlight-color);
+    border-radius: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 10px;
+}
+
+.SignupButtonText {
+    color: var(--accent-color);
+    font-size: large;
+    text-align: center;
+    align-self: center;
+}
+
+.SmallLoginPrompt {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+.SmallLoginText {
+    font-size: 15px;
+}
+
+.SmallLoginButton {
+    background-color: var(--background-color);
+    border: none;
+    cursor: pointer;
+}
+
+.SmallLoginButtonText {
+    color: var(--text-highlight-color);
+    font-size: 15px;
+    text-align: center;
+    align-self: center;
+}
+
+.OrText {
+    font-size: 20px;
+    text-align: center;
+    align-self: center;
+    font-weight: bold;
+    margin-top: 0px;
+}
+
+.AlternateSigninIcon {
+    align-self: center;
+    width: 35px;
+    padding-right: 10px;
+}
+
+.AlternateSigninText {
+    font-size: 18px;
+    color: var(--google-text-color);
+    align-self: center;
+}
+
+.AlternateSigninButton {
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    background-color: var(--google-background-color);
+    height: 50px;
+    border: 2px solid var(--google-background-color);
+    border-radius: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+:focus {
+    outline: var(--text-highlight-color) solid 1px;
+}
+
+::-webkit-input-placeholder {
+    /* Chrome/Opera/Safari */
+    color: var(--placeholder-color);
+}
+
+::-moz-placeholder {
+    /* Firefox 19+ */
+    color: var(--placeholder-color);
+}
+:-ms-input-placeholder {
+    /* IE 10+ */
+    color: var(--placeholder-color);
+}
+:-moz-placeholder {
+    /* Firefox 18- */
+    color: var(--placeholder-color);
+}

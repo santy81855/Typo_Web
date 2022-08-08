@@ -1,6 +1,12 @@
 body {
     --background-color: #121e26;
+    --lighter-background-color: #243540;
     --accent-color: #f4efeb;
     --text-highlight-color: #8fbcbb;
     --caret-color: #8fbcbb;
+    --google-background-color: #f4efeb;
+    --google-text-color: #0057e7;
+    --min-width: 400px;
+    --min-height: 500px;
+    --placeholder-color: rgba(244, 239, 235, 0.5);
 }

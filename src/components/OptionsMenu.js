@@ -92,6 +92,7 @@ export default function Menu() {
             onClick={() => setActiveSub(0)}
             onMouseOver={() => hoverEnter(word1)}
             onMouseOut={() => hoverExit(word1)}
+            key="word1"
         >
             10
         </button>,
@@ -102,6 +103,7 @@ export default function Menu() {
             onClick={() => setActiveSub(1)}
             onMouseOver={() => hoverEnter(word2)}
             onMouseOut={() => hoverExit(word2)}
+            key="word2"
         >
             25
         </button>,
@@ -112,6 +114,7 @@ export default function Menu() {
             onClick={() => setActiveSub(2)}
             onMouseOver={() => hoverEnter(word3)}
             onMouseOut={() => hoverExit(word3)}
+            key="word3"
         >
             50
         </button>,
@@ -122,6 +125,7 @@ export default function Menu() {
             onClick={() => setActiveSub(3)}
             onMouseOver={() => hoverEnter(word4)}
             onMouseOut={() => hoverExit(word4)}
+            key="word4"
         >
             100
         </button>,
@@ -135,6 +139,7 @@ export default function Menu() {
             onClick={() => setActiveSub(0)}
             onMouseOver={() => hoverEnter(time1)}
             onMouseOut={() => hoverExit(time1)}
+            key="time1"
         >
             15
         </button>,
@@ -145,6 +150,7 @@ export default function Menu() {
             onClick={() => setActiveSub(1)}
             onMouseOver={() => hoverEnter(time2)}
             onMouseOut={() => hoverExit(time2)}
+            key="time2"
         >
             30
         </button>,
@@ -155,6 +161,7 @@ export default function Menu() {
             onClick={() => setActiveSub(2)}
             onMouseOver={() => hoverEnter(time3)}
             onMouseOut={() => hoverExit(time3)}
+            key="time3"
         >
             60
         </button>,
@@ -165,6 +172,7 @@ export default function Menu() {
             onClick={() => setActiveSub(3)}
             onMouseOver={() => hoverEnter(time4)}
             onMouseOut={() => hoverExit(time4)}
+            key="time4"
         >
             120
         </button>,
