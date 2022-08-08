@@ -22,7 +22,7 @@ function App() {
     const [width, setWindowWidth] = useState(window.innerWidth);
     const [page, setPage] = useState(0);
     const [loggedIn, setLoggedIn] = useState(false);
-    const [isSigningUp, setIsSigningUp] = useState(true);
+    const [isSigningUp, setIsSigningUp] = useState(false);
     // create a state for when the user is logged in
     const [user, setUser] = useState({});
     const [username, setUsername] = useState("Login");

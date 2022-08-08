@@ -88,7 +88,7 @@ export default function Menu() {
     );
     const ProfileText = (
         <a ref={ProfileTextRef} className="MenuText" style={showProfileText}>
-            {user.email}
+            {user?.email}
         </a>
     );
     const SettingsText = (
