@@ -12,37 +12,110 @@ import { Colors } from "./Global";
 import SignupPage from "./SignupPage";
 import "../styles/LoginPage.css";
 import { onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
-import { auth, signInWithGoogle, signInWithGithub } from "../firebase-config";
+import {
+    collection,
+    doc,
+    getDocs,
+    getDoc,
+    query,
+    where,
+} from "firebase/firestore";
+import {
+    auth,
+    signInWithGoogle,
+    signInWithGithub,
+    db,
+} from "../firebase-config";
 
 export default function Login() {
     // here we import the states we have stored in the AppContext in the App.js file
     const {
-        width,
         loggedIn,
         setLoggedIn,
         isSigningUp,
         setIsSigningUp,
-        user,
         setUser,
+        setUsername,
+        page,
     } = useContext(AppContext);
     // state to track if the user login failed
     const [loginError, setLoginError] = useState(false);
     // track the email and password box states
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    // create references to the email and password
+    const emailRef = useRef(null);
+    const passwordRef = useRef(null);
+    const loginErrorRef = useRef(null);
 
     // rerender the page anytime we switch from log in to sign up
     useEffect(() => {}, [isSigningUp]);
+    // anytime the page gets changed we want to set the issigningup state to false
+    useEffect(() => {
+        setIsSigningUp(false);
+    }, [page]);
 
     const LogIn = async () => {
-        try {
-            const user = await signInWithEmailAndPassword(
-                auth,
-                email,
-                password
-            );
-        } catch (error) {
-            console.log(error.message);
+        var error = 0;
+        var empty = "";
+
+        if (email == empty) {
+            emailRef.current.style.border = "1px solid red";
+            error = 1;
+        } else {
+            emailRef.current.style.border =
+                "2px solid " + Colors.lighterBackground;
+        }
+        if (password == empty) {
+            passwordRef.current.style.border = "1px solid red";
+            error = 1;
+        } else {
+            passwordRef.current.style.border =
+                "2px solid " + Colors.lighterBackground;
+        }
+        if (error == 0) {
+            // regex to check if string is email address
+            const regexExp =
+                /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/gi;
+            // check if they are using a username instead of email
+            var isEmail = regexExp.test(email);
+            // if they are using a username we need to use it to find their email from the database
+            if (!isEmail) {
+                // find the user using this username
+                // check if this username exists
+                const docRef = doc(db, "users", email);
+                const docSnap = await getDoc(docRef);
+                // if we find the username, then we get the email from it
+                if (docSnap.exists()) {
+                    setEmail(docSnap.data().email);
+                }
+            }
+            try {
+                const user = await signInWithEmailAndPassword(
+                    auth,
+                    email,
+                    password
+                );
+                // get the users collection
+                const userRef = collection(db, "users");
+                // Create a query against the collection.
+                const q = query(userRef, where("email", "==", email));
+                // retrieve the results of the query
+                const querySnap = await getDocs(q);
+                // get the username associated with this
+                var docs = [];
+                querySnap.forEach((doc) => {
+                    docs.push(doc);
+                });
+                // if the login is successful then set the user state, the logged in state, and the username state
+                setUser(user);
+                setLoggedIn(true);
+                setIsSigningUp(false);
+                setUsername(docs[0].data().username);
+                setLoginError(false);
+            } catch (error) {
+                setLoginError(true);
+            }
         }
     };
 
@@ -57,6 +130,7 @@ export default function Login() {
     // create the login input area for email and password
     const LoginEmailInput = (
         <input
+            ref={emailRef}
             onChange={({ target }) => setEmail(target.value)}
             type="text"
             autoFocus={true}
@@ -66,6 +140,7 @@ export default function Login() {
     );
     const LoginPassInput = (
         <input
+            ref={passwordRef}
             onChange={({ target }) => setPassword(target.value)}
             type="password"
             placeholder="Password"
@@ -74,7 +149,9 @@ export default function Login() {
     );
     // error message for if the login fails
     const LoginErrorText = (
-        <p className="LoginError">Incorrect email or password</p>
+        <p ref={loginErrorRef} className="LoginError">
+            Incorrect email or password
+        </p>
     );
     // login button text
     const LoginButtonText = <h3 className="LoginButtonText">Log In</h3>;

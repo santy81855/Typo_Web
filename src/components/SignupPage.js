@@ -9,7 +9,13 @@ import {
     createUserWithEmailAndPassword,
     onAuthStateChanged,
 } from "firebase/auth";
-import { auth, signInWithGoogle, signInWithGithub } from "../firebase-config";
+import {
+    auth,
+    signInWithGoogle,
+    signInWithGithub,
+    db,
+} from "../firebase-config";
+import { collection, doc, setDoc, addDoc, getDoc } from "firebase/firestore";
 import { AppContext } from "../App";
 import GoogleButtonIcon from "../images/GoogleLogo.png";
 import GithubButtonIcon from "../images/GithubLogo.png";
@@ -37,32 +43,109 @@ export default function SignUpPage() {
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [inputUsername, setInputUsername] = useState("");
+    // create references to input fields
+    const firstRef = useRef(null);
+    const lastRef = useRef(null);
+    const emailRef = useRef(null);
+    const passwordRef = useRef(null);
+    const confirmPasswordRef = useRef(null);
+    const usernameRef = useRef(null);
+    const passwordErrorRef = useRef(null);
 
     const registerUser = async (e) => {
         e.preventDefault();
-        console.log(first);
         var empty = "";
-        // if all input fields are not filled out return error
-        if (email == empty || password == empty || confirmPassword == empty) {
-            alert("Please fill out all fields");
+        var error = 0;
+
+        if (first == empty) {
+            firstRef.current.style.border = "1px solid red";
+            error = 1;
+        } else {
+            firstRef.current.style.border =
+                "2px solid " + Colors.lighterBackground;
         }
-        // if both passwords don't match return error
-        else if (password != confirmPassword) {
-            alert("passwords don't match");
+        if (last == empty) {
+            lastRef.current.style.border = "1px solid red";
+            error = 1;
+        } else {
+            lastRef.current.style.border =
+                "2px solid " + Colors.lighterBackground;
         }
-        // otherwise try to create the account
-        else {
-            try {
-                const user = await createUserWithEmailAndPassword(
-                    auth,
-                    email,
-                    password
-                );
-                console.log(user);
-                setLoggedIn(true);
-                setUser(user);
-            } catch (error) {
-                console.log(error.message);
+        if (inputUsername == empty) {
+            usernameRef.current.style.border = "1px solid red";
+            error = 1;
+        } else {
+            usernameRef.current.style.border =
+                "2px solid " + Colors.lighterBackground;
+        }
+        if (email == empty) {
+            emailRef.current.style.border = "1px solid red";
+            error = 1;
+        } else {
+            emailRef.current.style.border =
+                "2px solid " + Colors.lighterBackground;
+        }
+        if (password == empty) {
+            passwordRef.current.style.border = "1px solid red";
+            error = 1;
+        } else {
+            passwordRef.current.style.border =
+                "2px solid " + Colors.lighterBackground;
+        }
+        if (confirmPassword == empty) {
+            confirmPasswordRef.current.style.border = "1px solid red";
+            error = 1;
+        } else {
+            confirmPasswordRef.current.style.border =
+                "2px solid " + Colors.lighterBackground;
+        }
+        // if passwords don't match return error
+        if (
+            password != confirmPassword &&
+            password != empty &&
+            confirmPassword != empty
+        ) {
+            setSignupError(true);
+            error = 1;
+        } else if (password == confirmPassword) {
+            setSignupError(false);
+        } // otherwise try to create the account
+        if (error == 0) {
+            // check if username is taken
+            const docRef = doc(db, "users", inputUsername);
+            const docSnap = await getDoc(docRef);
+            // if username is not taken
+            if (!docSnap.exists()) {
+                console.log("did not find it");
+                try {
+                    const user = await createUserWithEmailAndPassword(
+                        auth,
+                        email,
+                        password
+                    );
+                    console.log(user);
+                    // add the user to the database if they were successfully created
+                    setLoggedIn(true);
+                    setUser(user);
+                    setUsername(inputUsername);
+                    // create the new user
+                    const userRef = collection(db, "users");
+                    const data = {
+                        email: email,
+                        first: first,
+                        last: last,
+                        username: inputUsername,
+                        results: [],
+                    };
+                    // add the user to the database
+                    await setDoc(doc(userRef, inputUsername), data);
+                } catch (error) {
+                    alert("" + error.message);
+                }
+            }
+            // if username is taken
+            else {
+                alert("username is taken");
             }
         }
     };
@@ -79,6 +162,7 @@ export default function SignUpPage() {
     const FirstNameInput = (
         <input
             onChange={({ target }) => setFirst(target.value)}
+            ref={firstRef}
             type="text"
             autoFocus={true}
             placeholder="First"
@@ -88,6 +172,7 @@ export default function SignUpPage() {
     const LastNameInput = (
         <input
             onChange={({ target }) => setLast(target.value)}
+            ref={lastRef}
             type="text"
             placeholder="Last"
             className="NameInput"
@@ -105,6 +190,7 @@ export default function SignUpPage() {
     const UsernameInput = (
         <input
             onChange={({ target }) => setInputUsername(target.value)}
+            ref={usernameRef}
             type="text"
             placeholder="Username"
             className="UsernameInput"
@@ -114,6 +200,7 @@ export default function SignUpPage() {
     const SignupEmailInput = (
         <input
             onChange={({ target }) => setEmail(target.value)}
+            ref={emailRef}
             type="text"
             placeholder="Email"
             className="EmailInput"
@@ -122,6 +209,7 @@ export default function SignUpPage() {
     const SignupPassInput1 = (
         <input
             onChange={({ target }) => setPassword(target.value)}
+            ref={passwordRef}
             type="password"
             placeholder="Password"
             className="PassInput"
@@ -130,6 +218,7 @@ export default function SignUpPage() {
     const SignupPassInput2 = (
         <input
             onChange={({ target }) => setConfirmPassword(target.value)}
+            ref={confirmPasswordRef}
             type="password"
             placeholder="Confirm Password"
             className="PassInput"
@@ -137,7 +226,9 @@ export default function SignUpPage() {
     );
     // error message for if the login fails
     const SignupErrorText = (
-        <p className="SignupError">Incorrect email or password</p>
+        <p ref={passwordErrorRef} className="SignupError">
+            Passwords do not match
+        </p>
     );
     // login button text
     const SignupButtonText = (

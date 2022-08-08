@@ -14,8 +14,17 @@ import { auth } from "../firebase-config";
 
 export default function ProfilePage() {
     // here we import the states we have stored in the AppContext in the App.js file
-    const { width, loggedIn, setLoggedIn, user, setUser } =
-        useContext(AppContext);
+    const {
+        width,
+        loggedIn,
+        setLoggedIn,
+        user,
+        setUser,
+        setIsSigningUp,
+        username,
+        setUsername,
+        page,
+    } = useContext(AppContext);
 
     // rerender the page anytime we switch the user state
     useEffect(() => {}, [user]);
@@ -23,12 +32,15 @@ export default function ProfilePage() {
     const LogOut = async () => {
         await signOut(auth);
         setUser(null);
+        setLoggedIn(false);
+        setIsSigningUp(false);
+        setUsername("Login");
     };
 
     // Greeting on the profile page
     const ProfileGreetingText = (
         <p className="ProfileGreetingText">
-            {loggedIn === true && "Welcome, " + user.email}
+            {loggedIn === true && "Welcome, " + username}
         </p>
     );
 

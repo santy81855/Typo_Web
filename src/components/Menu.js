@@ -29,6 +29,7 @@ export default function Menu() {
         setUser,
         menuWidth,
         setMenuWidth,
+        username,
     } = useContext(AppContext);
     // reference to each button in the menu
     const MenuLogoRef = useRef(null);
@@ -64,10 +65,11 @@ export default function Menu() {
 
     // object to determine what should be showing at different window widths
     const responsive = {
-        showMenuText: width > 530,
-        showProfileText: width > 415,
+        showProfileText: width > 530 + username.length * 10,
+        showMenuText: width > 470,
         showSettingsText: width > 350,
-        stackIcons: width > 270,
+        stackIcons: width > 270 || width < 210,
+        stackMenu: width > 210,
     };
     const showMenuText = {
         display: responsive.showMenuText ? "flex" : "none",
@@ -81,6 +83,9 @@ export default function Menu() {
     const stackIcons = {
         flexDirection: responsive.stackIcons ? "row" : "column",
     };
+    const stackMenu = {
+        flexDirection: responsive.stackMenu ? "row" : "column",
+    };
 
     // create the text
     const MenuText = (
@@ -90,8 +95,7 @@ export default function Menu() {
     );
     const ProfileText = (
         <a ref={ProfileTextRef} className="MenuText" style={showProfileText}>
-            {loggedIn === true && user.email}
-            {loggedIn === false && "Login"}
+            {username}
         </a>
     );
     const SettingsText = (
@@ -142,7 +146,7 @@ export default function Menu() {
         </button>
     );
     const Menu = (
-        <div ref={MenuRef} className="Menu">
+        <div ref={MenuRef} className="Menu" style={stackMenu}>
             {/*Logo on the left of the menu needs to be a button*/}
             {MenuLogo}
             {/*put profile and settings in their own div so we can add responsiveness*/}
