@@ -11,15 +11,42 @@ import GithubButtonIcon from "../images/GithubLogo.png";
 import { Colors } from "./Global";
 import SignupPage from "./SignupPage";
 import "../styles/LoginPage.css";
+import { onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
+import { auth, signInWithGoogle, signInWithGithub } from "../firebase-config";
 
 export default function Login() {
     // here we import the states we have stored in the AppContext in the App.js file
-    const { width, loggedIn, setLoggedIn, isSigningUp, setIsSigningUp } =
-        useContext(AppContext);
+    const {
+        width,
+        loggedIn,
+        setLoggedIn,
+        isSigningUp,
+        setIsSigningUp,
+        user,
+        setUser,
+    } = useContext(AppContext);
     // state to track if the user login failed
     const [loginError, setLoginError] = useState(false);
+    // track the email and password box states
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
 
-    // function called when login button is pressed
+    // rerender the page anytime we switch from log in to sign up
+    useEffect(() => {}, [isSigningUp]);
+
+    const LogIn = async () => {
+        try {
+            const user = await signInWithEmailAndPassword(
+                auth,
+                email,
+                password
+            );
+        } catch (error) {
+            console.log(error.message);
+        }
+    };
+
+    // function called when small signup button is pressed
     function signupButtonClicked() {
         setIsSigningUp(true);
     }
@@ -30,6 +57,7 @@ export default function Login() {
     // create the login input area for email and password
     const LoginEmailInput = (
         <input
+            onChange={({ target }) => setEmail(target.value)}
             type="text"
             autoFocus={true}
             placeholder="Email"
@@ -38,6 +66,7 @@ export default function Login() {
     );
     const LoginPassInput = (
         <input
+            onChange={({ target }) => setPassword(target.value)}
             type="password"
             placeholder="Password"
             className="PassInput"
@@ -51,7 +80,7 @@ export default function Login() {
     const LoginButtonText = <h3 className="LoginButtonText">Log In</h3>;
     // create the log in button
     const LoginButton = (
-        <button type="button" className="LoginButton">
+        <button type="button" onClick={LogIn} className="LoginButton">
             {LoginButtonText}
         </button>
     );
@@ -68,7 +97,11 @@ export default function Login() {
         </h3>
     );
     const SignupButton = (
-        <button type="button" className="SmallSignupButton">
+        <button
+            type="button"
+            onClick={signupButtonClicked}
+            className="SmallSignupButton"
+        >
             {SignupButtonText}
         </button>
     );
@@ -85,7 +118,11 @@ export default function Login() {
         <p className="AlternateSigninText">Continue with Google</p>
     );
     const GoogleButton = (
-        <button type="button" className="AlternateSigninButton">
+        <button
+            type="button"
+            onClick={signInWithGoogle}
+            className="AlternateSigninButton"
+        >
             <img
                 src={GoogleButtonIcon}
                 alt="logo"
@@ -99,7 +136,11 @@ export default function Login() {
         <p className="AlternateSigninText">Continue with GitHub</p>
     );
     const GithubButton = (
-        <button type="button" className="AlternateSigninButton">
+        <button
+            type="button"
+            onClick={signInWithGithub}
+            className="AlternateSigninButton"
+        >
             <img
                 src={GithubButtonIcon}
                 alt="logo"
@@ -123,10 +164,8 @@ export default function Login() {
         </div>
     );
     if (loggedIn == false && isSigningUp == false) {
-        console.log("here");
         return LogInForm;
     } else if (loggedIn == false && isSigningUp == true) {
-        console.log("here2");
         return <SignupPage />;
     }
 }

@@ -24,9 +24,9 @@ export default function Menu() {
         page,
         setPage,
         loggedIn,
+        setLoggedIn,
         user,
         setUser,
-        username,
         menuWidth,
         setMenuWidth,
     } = useContext(AppContext);
@@ -43,10 +43,12 @@ export default function Menu() {
     // whenever we change the auth state we want to change the user's name on the profile button
     onAuthStateChanged(auth, (currentUser) => {
         setUser(currentUser);
+        if (currentUser == null) setLoggedIn(false);
+        else setLoggedIn(true);
     });
 
     // get the exact place the menu ends on the screen
-    useEffect(() => {
+    useLayoutEffect(() => {
         updateDimensions();
         window.addEventListener("resize", updateDimensions);
         return () => window.removeEventListener("resize", updateDimensions);
@@ -88,7 +90,8 @@ export default function Menu() {
     );
     const ProfileText = (
         <a ref={ProfileTextRef} className="MenuText" style={showProfileText}>
-            {user?.email}
+            {loggedIn === true && user.email}
+            {loggedIn === false && "Login"}
         </a>
     );
     const SettingsText = (

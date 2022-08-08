@@ -71,7 +71,7 @@ function App() {
                 <Menu />
                 {/*Display text page if page state == 0*/}
                 {page === 0 && textPage}
-                {/*Display profile page if page state == 1*/}
+                {/*Display profile page if page state == 1 (returns login page if not signed in)*/}
                 {page === 1 && <ProfilePage />}
             </div>
         </AppContext.Provider>

@@ -9,7 +9,7 @@ import {
     createUserWithEmailAndPassword,
     onAuthStateChanged,
 } from "firebase/auth";
-import { auth } from "../firebase-config";
+import { auth, signInWithGoogle, signInWithGithub } from "../firebase-config";
 import { AppContext } from "../App";
 import GoogleButtonIcon from "../images/GoogleLogo.png";
 import GithubButtonIcon from "../images/GithubLogo.png";
@@ -26,7 +26,6 @@ export default function SignUpPage() {
         setIsSigningUp,
         user,
         setUser,
-        username,
         setUsername,
     } = useContext(AppContext);
     // state to track if the user login failed
@@ -60,13 +59,18 @@ export default function SignUpPage() {
                     password
                 );
                 console.log(user);
-                setUsername(inputUsername);
+                setLoggedIn(true);
                 setUser(user);
             } catch (error) {
                 console.log(error.message);
             }
         }
     };
+
+    // function called when small signup button is pressed
+    function logInButtonClicked() {
+        setIsSigningUp(false);
+    }
 
     // title of the login page
     const SignupTitleText = <h3 className="SignupTitleText">Create Account</h3>;
@@ -158,7 +162,11 @@ export default function SignUpPage() {
         </h3>
     );
     const LoginButton = (
-        <button type="button" className="SmallLoginButton">
+        <button
+            type="button"
+            onClick={logInButtonClicked}
+            className="SmallLoginButton"
+        >
             {LoginButtonText}
         </button>
     );
@@ -175,7 +183,11 @@ export default function SignUpPage() {
         <p className="AlternateSigninText">Continue with Google</p>
     );
     const GoogleButton = (
-        <button type="button" className="AlternateSigninButton">
+        <button
+            type="button"
+            onClick={signInWithGoogle}
+            className="AlternateSigninButton"
+        >
             <img
                 src={GoogleButtonIcon}
                 alt="logo"
@@ -189,7 +201,11 @@ export default function SignUpPage() {
         <p className="AlternateSigninText">Continue with GitHub</p>
     );
     const GithubButton = (
-        <button type="submit" className="AlternateSigninButton">
+        <button
+            type="submit"
+            onClick={signInWithGithub}
+            className="AlternateSigninButton"
+        >
             <img
                 src={GithubButtonIcon}
                 alt="logo"

@@ -1,0 +1,10 @@
+@import "global.css";
+
+.ProfilePageDiv {
+    display: flex;
+    flex-direction: column;
+}
+
+.ProfileGreetingText {
+    color: var(--text-highlight-color);
+}
