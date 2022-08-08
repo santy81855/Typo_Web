@@ -37,6 +37,7 @@ export default function Login() {
         setUser,
         setUsername,
         page,
+        username,
     } = useContext(AppContext);
     // state to track if the user login failed
     const [loginError, setLoginError] = useState(false);
@@ -49,9 +50,12 @@ export default function Login() {
     const loginErrorRef = useRef(null);
 
     // rerender the page anytime we switch from log in to sign up
-    useEffect(() => {}, [isSigningUp]);
+    useEffect(() => {
+        console.log(isSigningUp);
+    }, [isSigningUp]);
     // anytime the page gets changed we want to set the issigningup state to false
     useEffect(() => {
+        console.log(username);
         setIsSigningUp(false);
     }, [page]);
 
@@ -124,6 +128,13 @@ export default function Login() {
         setIsSigningUp(true);
     }
 
+    // function to detect if they press enter on the password field
+    const handleKeyDown = (event) => {
+        if (event.key === "Enter") {
+            LogIn();
+        }
+    };
+
     // title of the login page
     const LoginTitleText = <h3 className="LoginTitleText">Log In</h3>;
 
@@ -142,6 +153,7 @@ export default function Login() {
         <input
             ref={passwordRef}
             onChange={({ target }) => setPassword(target.value)}
+            onKeyDown={handleKeyDown}
             type="password"
             placeholder="Password"
             className="PassInput"

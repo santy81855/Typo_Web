@@ -11,11 +11,19 @@ import Logo from "../images/logo.ico";
 import ProfileButtonIcon from "../images/profileIcon.png";
 import SettingsButtonIcon from "../images/settings_white.png";
 import { TextPage, ProfilePage, SettingsPage } from "./Global";
-import { auth } from "../firebase-config";
+import { auth, db } from "../firebase-config";
 import {
     createUserWithEmailAndPassword,
     onAuthStateChanged,
 } from "firebase/auth";
+import {
+    collection,
+    doc,
+    getDocs,
+    getDoc,
+    query,
+    where,
+} from "firebase/firestore";
 
 export default function Menu() {
     // here we import the states we have stored in the AppContext in the App.js file
@@ -30,6 +38,8 @@ export default function Menu() {
         menuWidth,
         setMenuWidth,
         username,
+        setIsSigningUp,
+        setUsername,
     } = useContext(AppContext);
     // reference to each button in the menu
     const MenuLogoRef = useRef(null);
@@ -43,9 +53,36 @@ export default function Menu() {
 
     // whenever we change the auth state we want to change the user's name on the profile button
     onAuthStateChanged(auth, (currentUser) => {
-        setUser(currentUser);
-        if (currentUser == null) setLoggedIn(false);
-        else setLoggedIn(true);
+        if (currentUser == null) {
+            setLoggedIn(false);
+            setUser(false);
+            setUsername("Login");
+        } else {
+            setLoggedIn(true);
+            //setUser(currentUser);
+            const getUserName = async () => {
+                // update the username
+                // get the users collection
+                const userRef = collection(db, "users");
+                // Create a query against the collection.
+                const q = query(
+                    userRef,
+                    where("email", "==", auth.currentUser.email)
+                );
+                // retrieve the results of the query
+                const querySnap = await getDocs(q);
+                // get the username associated with this
+                var docs = [];
+                querySnap.forEach((doc) => {
+                    docs.push(doc);
+                });
+                // set the username
+                setUsername(docs[0].data().username);
+                currentUser.displayName = username;
+                setUser(currentUser);
+            };
+            getUserName();
+        }
     });
 
     // get the exact place the menu ends on the screen
@@ -60,7 +97,6 @@ export default function Menu() {
         setMenuXPosition(
             MenuRef.current.offsetLeft + MenuRef.current.offsetWidth
         );
-        console.log(MenuXPosition);
     };
 
     // object to determine what should be showing at different window widths

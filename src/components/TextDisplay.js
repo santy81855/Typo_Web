@@ -8,7 +8,6 @@ import "../styles/TextDisplay.css";
 export default function TextDisplay() {
     const handleChange = (event) => {
         console.log(createColorWord("hello", "red").props.children);
-        textBoxRef.current.value = "";
     };
 
     function createColorWord(text, color) {

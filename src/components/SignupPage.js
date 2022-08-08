@@ -32,6 +32,7 @@ export default function SignUpPage() {
         setIsSigningUp,
         user,
         setUser,
+        username,
         setUsername,
     } = useContext(AppContext);
     // state to track if the user login failed
@@ -118,15 +119,17 @@ export default function SignUpPage() {
             if (!docSnap.exists()) {
                 console.log("did not find it");
                 try {
-                    const user = await createUserWithEmailAndPassword(
+                    const userCred = await createUserWithEmailAndPassword(
                         auth,
                         email,
                         password
                     );
-                    console.log(user);
+                    // add the username to their displayname
+                    userCred.displayName = inputUsername;
                     // add the user to the database if they were successfully created
                     setLoggedIn(true);
-                    setUser(user);
+                    setUser(userCred);
+                    console.log(user.displayName);
                     setUsername(inputUsername);
                     // create the new user
                     const userRef = collection(db, "users");
@@ -154,6 +157,13 @@ export default function SignUpPage() {
     function logInButtonClicked() {
         setIsSigningUp(false);
     }
+
+    // function to detect if they press enter on the password field
+    const handleKeyDown = (event) => {
+        if (event.key === "Enter") {
+            registerUser();
+        }
+    };
 
     // title of the login page
     const SignupTitleText = <h3 className="SignupTitleText">Create Account</h3>;
@@ -218,6 +228,7 @@ export default function SignUpPage() {
     const SignupPassInput2 = (
         <input
             onChange={({ target }) => setConfirmPassword(target.value)}
+            onKeyDown={handleKeyDown}
             ref={confirmPasswordRef}
             type="password"
             placeholder="Confirm Password"

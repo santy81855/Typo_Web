@@ -12,7 +12,20 @@ import OptionsMenu from "./components/OptionsMenu";
 import TextDisplay from "./components/TextDisplay";
 import ProfilePage from "./components/ProfilePage";
 import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "./firebase-config";
+import {
+    collection,
+    doc,
+    getDocs,
+    getDoc,
+    query,
+    where,
+} from "firebase/firestore";
+import {
+    auth,
+    signInWithGoogle,
+    signInWithGithub,
+    db,
+} from "./firebase-config";
 
 // app context to access states from any component
 export const AppContext = createContext(null);

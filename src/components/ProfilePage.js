@@ -29,6 +29,10 @@ export default function ProfilePage() {
     // rerender the page anytime we switch the user state
     useEffect(() => {}, [user]);
 
+    useEffect(() => {
+        console.log(username);
+    }, [page]);
+
     const LogOut = async () => {
         await signOut(auth);
         setUser(null);
@@ -40,15 +44,15 @@ export default function ProfilePage() {
     // Greeting on the profile page
     const ProfileGreetingText = (
         <p className="ProfileGreetingText">
-            {loggedIn === true && "Welcome, " + username}
+            {loggedIn === true && "Welcome, " + username + "!"}
         </p>
     );
 
     // logout button on profile
-    const LogoutButtonText = <h3 className="LoginButtonText">Log Out</h3>;
+    const LogoutButtonText = <h3 className="LogoutButtonText">Log Out</h3>;
     // create the log in button
     const LogoutButton = (
-        <button type="button" onClick={LogOut} className="LoginButton">
+        <button type="button" onClick={LogOut} className="LogoutButton">
             {LogoutButtonText}
         </button>
     );
